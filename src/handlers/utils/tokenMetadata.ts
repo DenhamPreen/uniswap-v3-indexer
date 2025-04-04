@@ -4,6 +4,7 @@ import { join } from "path";
 import { ADDRESS_ZERO } from "./constants";
 import { CHAIN_CONFIGS } from "./chains";
 import * as dotenv from "dotenv";
+import { safeBigIntToNumber } from ".";
 
 dotenv.config();
 
@@ -169,7 +170,7 @@ export async function getTokenMetadata(
     return {
       name: chainConfig.nativeTokenDetails.name,
       symbol: chainConfig.nativeTokenDetails.symbol,
-      decimals: Number(chainConfig.nativeTokenDetails.decimals),
+      decimals: safeBigIntToNumber(chainConfig.nativeTokenDetails.decimals),
     };
   }
 
@@ -182,7 +183,7 @@ export async function getTokenMetadata(
     return {
       name: tokenOverride.name,
       symbol: tokenOverride.symbol,
-      decimals: Number(tokenOverride.decimals),
+      decimals: safeBigIntToNumber(tokenOverride.decimals),
     };
   }
 

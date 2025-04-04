@@ -13,10 +13,22 @@ export function isAddressInList(address: string, list: string[]): boolean {
     return false;
 }
 
+export function safeBigIntToNumber(big: bigint) {
+    const MAX_SAFE = BigInt(Number.MAX_SAFE_INTEGER);
+    const MIN_SAFE = BigInt(Number.MIN_SAFE_INTEGER);
+  
+    if (big <= MAX_SAFE && big >= MIN_SAFE) {
+      return Number(big);
+    } else {
+      console.log("BigInt is too large to safely convert to Number");
+      return 18; // this is wrong ofc
+    }
+  }
+
 export function exponentToBigDecimal(decimals: bigint): BigDecimal {
     let resultString = "1";
 
-    for (let i = 0; i < Number(decimals); i++) {
+    for (let i = 0; i < safeBigIntToNumber(decimals); i++) {
         resultString += "0";
     }
 
